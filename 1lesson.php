@@ -2,7 +2,7 @@
 print_r('Hello, world');
 
 
-arrayTileFil(7,6);
+arrayTileFil(5,6);
 
 function arrayTileFil (int $lines, int $columns) {
     $array_tile = array();
