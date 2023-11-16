@@ -1,5 +1,7 @@
 <?php
 print_r('Hello, world');
+print_r('Hello, world');
+print_r('Hello, world');
 
 arrayTileFil(7,6);
 
