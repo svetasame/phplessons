@@ -1,102 +1,45 @@
 <?php
 print_r('Hello, world');
+echo "\n";
 
-
-arrayTileFil(6,10);
-
-function arrayTileFil (int $lines, int $columns) {
-    if($lines==$columns) {
-        arrayTileFilSquare($lines, $columns);
-    }
-    elseif ($lines>$columns){
-        arrayTileFilLines ($lines, $columns);
-    }
-    else {
-        arrayTileFilCols ($lines, $columns);
-    }
-}
-
-function arrayTileFilCols (int $lines, int $columns) {
-    $array_tile = array();
-    $k = $columns;
-    for ($i = 0; $i < $lines; $i++):
-        echo "\n";
-        if ($i < $lines / 2){
-            for ($j = 0; $j < $columns; $j++):
-            if ($j <= $i) {
-                $array_tile[$i][$j] = "+";
-            } else {
-                $array_tile[$i][$j] = "-";
-            }
-            echo $array_tile[$i][$j] . '  ';
-            endfor;
+printSpiralArray(fillSpiralArray(6, 10));
+function fillSpiralArray($lines, $cols) {
+    $result = array_fill(0, $lines, array_fill(0, $cols, "+"));
+    $value = 1;
+    $top = 0;
+    $bottom = $lines - 1;
+    $left = 0;
+    $right = $cols - 1;
+    while ($value <= $lines * $cols) {
+        for ($i = $left; $i <= $right; $i++) {
+            $result[$top][$i] = '-';
+            $value++;
         }
-        else {
-            for ($j = 0;  $j < $columns; $j++):
-                if ($j <= $k/2) {
-                    $array_tile[$i][$j] = "+";
-                } else {
-                    $array_tile[$i][$j]= "-";
-                    $k++;
-                }
-                echo $array_tile[$i][$j] . '  ';
-            endfor;
-            }
-        endfor;
-}
-
-function arrayTileFilSquare (int $lines, int $columns) {
-    $array_tile = array();
-    for ($i = 0; $i < $lines; $i++):
-        echo "\n";
-        for ($j = 0; $j < $columns; $j++):
-            if ($j <= $i) {
-                $array_tile[$i][$j] = "+";
-            } else {
-                $array_tile[$i][$j] = "-";
-            }
-            echo $array_tile[$i][$j] . '  ';
-        endfor;
-    endfor;
-}
-
-function arrayTileFilLines (int $lines, int $columns) {
-    $array_tile = array();
-    $k = $columns;
-    $l = $lines - $k/2;
-    for ($i = 0; $i < $lines; $i++):
-        echo "\n";
-        if ($i < $columns / 2 ){
-            for ($j = 0; $j < $columns; $j++):
-                if ($j < $i) {
-                    $array_tile[$i][$j] = "+";
-                } else {
-                    $array_tile[$i][$j] = "-";
-                }
-                echo $array_tile[$i][$j] . '  ';
-            endfor;
-            }
-        elseif ($i >= $columns /2 && $i < $l){
-            for ($j = 0;  $j < $columns; $j++):
-                if ($j < $k/2) {
-                    $array_tile[$i][$j] = "+";
-                } else {
-                    $array_tile[$i][$j]= "-";
-                }
-                echo $array_tile[$i][$j] . '  ';
-            endfor;
+        $top++;
+        for ($i = $top; $i <= $bottom; $i++) {
+            $result[$i][$right] = '-';
+            $value++;
         }
-        else {
-            for ($j = 0;  $j < $columns; $j++):
-                if ($j <= $k/2) {
-                    $array_tile[$i][$j] = "+";
-                } else {
-                    $array_tile[$i][$j] = "-";
-                    $k++;
-                }
-                echo $array_tile[$i][$j] . '  ';
-            endfor;
+        $right--;
+        for ($i = $right; $i >= $left; $i--) {
+            $result[$bottom][$i] = '+';
+            $value++;
         }
-    endfor;
+        $bottom--;
+        for ($i = $bottom; $i >= $top; $i--) {
+            $result[$i][$left] = '+';
+            $value++;
+        }
+        $left++;
+    }
+    return $result;
 }
 
+function printSpiralArray($array) {
+    foreach ($array as $row) {
+        foreach ($row as $value) {
+            echo str_pad($value, 2, " ", STR_PAD_LEFT);
+        }
+        echo "\n";
+    }
+}
