@@ -14,7 +14,7 @@ function arrayTileFil (int $lines, int $columns) {
             } else {
                 $array_tile[$i][$j] = "-";
             }
-            echo$array_tile[$i][$j] . '  ';
+            echo $array_tile[$i][$j] . '  ';
         endfor;
     endfor;
 }
